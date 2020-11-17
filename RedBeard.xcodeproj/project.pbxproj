@@ -9,23 +9,43 @@
 /* Begin PBXBuildFile section */
 		9775BB9C255E61210086F314 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BB9B255E61210086F314 /* AppDelegate.swift */; };
 		9775BB9E255E61210086F314 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BB9D255E61210086F314 /* SceneDelegate.swift */; };
-		9775BBA0255E61210086F314 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BB9F255E61210086F314 /* ViewController.swift */; };
+		9775BBA0255E61210086F314 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BB9F255E61210086F314 /* MainViewController.swift */; };
 		9775BBA3255E61210086F314 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9775BBA1255E61210086F314 /* Main.storyboard */; };
 		9775BBA6255E61210086F314 /* RedBeard.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9775BBA4255E61210086F314 /* RedBeard.xcdatamodeld */; };
 		9775BBA8255E61230086F314 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9775BBA7255E61230086F314 /* Assets.xcassets */; };
 		9775BBAB255E61230086F314 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9775BBA9255E61230086F314 /* LaunchScreen.storyboard */; };
+		9775BBB5255E62F00086F314 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BBB4255E62F00086F314 /* Request.swift */; };
+		9775BBBA255E63B00086F314 /* NetWorkInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BBB9255E63B00086F314 /* NetWorkInfo.swift */; };
+		9775BBC0255E6DFD0086F314 /* NetWorkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BBBF255E6DFD0086F314 /* NetWorkError.swift */; };
+		9775BBCE256023360086F314 /* JSONData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BBCD256023360086F314 /* JSONData.swift */; };
+		9775BBD12560B2A50086F314 /* RedBeardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BBD02560B2A50086F314 /* RedBeardCollectionViewCell.swift */; };
+		9775BC0D25622BDD0086F314 /* RedSoTableTableViewControllerr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BC0C25622BDD0086F314 /* RedSoTableTableViewControllerr.swift */; };
+		9775BC1025622E6E0086F314 /* BannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BC0F25622E6E0086F314 /* BannerTableViewCell.swift */; };
+		9775BC1425622E830086F314 /* NomalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BC1325622E830086F314 /* NomalTableViewCell.swift */; };
+		9775BC1A256235F40086F314 /* RedSoPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BC19256235F40086F314 /* RedSoPageViewController.swift */; };
+		9775BC2A2562A83E0086F314 /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9775BC292562A83E0086F314 /* LoadingTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9775BB98255E61210086F314 /* RedBeard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RedBeard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9775BB9B255E61210086F314 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9775BB9D255E61210086F314 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9775BB9F255E61210086F314 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9775BB9F255E61210086F314 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		9775BBA2255E61210086F314 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9775BBA5255E61210086F314 /* RedBeard.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RedBeard.xcdatamodel; sourceTree = "<group>"; };
 		9775BBA7255E61230086F314 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9775BBAA255E61230086F314 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9775BBAC255E61230086F314 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9775BBB4255E62F00086F314 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		9775BBB9255E63B00086F314 /* NetWorkInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkInfo.swift; sourceTree = "<group>"; };
+		9775BBBF255E6DFD0086F314 /* NetWorkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetWorkError.swift; sourceTree = "<group>"; };
+		9775BBCD256023360086F314 /* JSONData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONData.swift; sourceTree = "<group>"; };
+		9775BBD02560B2A50086F314 /* RedBeardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedBeardCollectionViewCell.swift; sourceTree = "<group>"; };
+		9775BC0C25622BDD0086F314 /* RedSoTableTableViewControllerr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedSoTableTableViewControllerr.swift; sourceTree = "<group>"; };
+		9775BC0F25622E6E0086F314 /* BannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTableViewCell.swift; sourceTree = "<group>"; };
+		9775BC1325622E830086F314 /* NomalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NomalTableViewCell.swift; sourceTree = "<group>"; };
+		9775BC19256235F40086F314 /* RedSoPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedSoPageViewController.swift; sourceTree = "<group>"; };
+		9775BC292562A83E0086F314 /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +78,42 @@
 		9775BB9A255E61210086F314 /* RedBeard */ = {
 			isa = PBXGroup;
 			children = (
-				9775BB9B255E61210086F314 /* AppDelegate.swift */,
-				9775BB9D255E61210086F314 /* SceneDelegate.swift */,
-				9775BB9F255E61210086F314 /* ViewController.swift */,
+				9775BB9F255E61210086F314 /* MainViewController.swift */,
+				9775BBD02560B2A50086F314 /* RedBeardCollectionViewCell.swift */,
+				9775BC19256235F40086F314 /* RedSoPageViewController.swift */,
+				9775BBB3255E61380086F314 /* NetWork */,
+				9775BBD32560B6640086F314 /* Team */,
 				9775BBA1255E61210086F314 /* Main.storyboard */,
 				9775BBA7255E61230086F314 /* Assets.xcassets */,
+				9775BB9D255E61210086F314 /* SceneDelegate.swift */,
+				9775BB9B255E61210086F314 /* AppDelegate.swift */,
 				9775BBA9255E61230086F314 /* LaunchScreen.storyboard */,
 				9775BBAC255E61230086F314 /* Info.plist */,
 				9775BBA4255E61210086F314 /* RedBeard.xcdatamodeld */,
 			);
 			path = RedBeard;
+			sourceTree = "<group>";
+		};
+		9775BBB3255E61380086F314 /* NetWork */ = {
+			isa = PBXGroup;
+			children = (
+				9775BBB4255E62F00086F314 /* Request.swift */,
+				9775BBBF255E6DFD0086F314 /* NetWorkError.swift */,
+				9775BBB9255E63B00086F314 /* NetWorkInfo.swift */,
+				9775BBCD256023360086F314 /* JSONData.swift */,
+			);
+			path = NetWork;
+			sourceTree = "<group>";
+		};
+		9775BBD32560B6640086F314 /* Team */ = {
+			isa = PBXGroup;
+			children = (
+				9775BC0C25622BDD0086F314 /* RedSoTableTableViewControllerr.swift */,
+				9775BC1325622E830086F314 /* NomalTableViewCell.swift */,
+				9775BC0F25622E6E0086F314 /* BannerTableViewCell.swift */,
+				9775BC292562A83E0086F314 /* LoadingTableViewCell.swift */,
+			);
+			path = Team;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,10 +186,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9775BBA0255E61210086F314 /* ViewController.swift in Sources */,
+				9775BC2A2562A83E0086F314 /* LoadingTableViewCell.swift in Sources */,
+				9775BBC0255E6DFD0086F314 /* NetWorkError.swift in Sources */,
+				9775BBBA255E63B00086F314 /* NetWorkInfo.swift in Sources */,
+				9775BC1A256235F40086F314 /* RedSoPageViewController.swift in Sources */,
+				9775BBA0255E61210086F314 /* MainViewController.swift in Sources */,
 				9775BB9C255E61210086F314 /* AppDelegate.swift in Sources */,
+				9775BBD12560B2A50086F314 /* RedBeardCollectionViewCell.swift in Sources */,
+				9775BC1425622E830086F314 /* NomalTableViewCell.swift in Sources */,
+				9775BBCE256023360086F314 /* JSONData.swift in Sources */,
+				9775BC1025622E6E0086F314 /* BannerTableViewCell.swift in Sources */,
 				9775BBA6255E61210086F314 /* RedBeard.xcdatamodeld in Sources */,
+				9775BBB5255E62F00086F314 /* Request.swift in Sources */,
 				9775BB9E255E61210086F314 /* SceneDelegate.swift in Sources */,
+				9775BC0D25622BDD0086F314 /* RedSoTableTableViewControllerr.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
