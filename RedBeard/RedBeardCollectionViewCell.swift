@@ -8,6 +8,7 @@
 import UIKit
 
 class RedBeardCollectionViewCell: UICollectionViewCell {
+    
     let teamLabel:UILabel = {
        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
         label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)

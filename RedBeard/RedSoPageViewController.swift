@@ -10,12 +10,16 @@ import UIKit
 class RedSoPageViewController: UIPageViewController {
     
     var scrollToItemDelegate:ScrollToItem!
+    
     let tableViewcontroller = [
         RedSoTableViewController(team: .rangers),
         RedSoTableViewController(team: .elastic),
         RedSoTableViewController(team: .dynamo)
     ]
     
+    func myClosure(para: String, myClosurePara: (String) -> Void) {
+        myClosurePara(para)
+    }
     init(){
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
     }
@@ -59,9 +63,13 @@ extension RedSoPageViewController:UIPageViewControllerDataSource{
             index -= 1
             return tableViewcontroller[index]
         }
+        
+        
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+//        tableViewcontroller.indices.contains(index + 1)
+        
         let tableViewController = viewController as! RedSoTableViewController
         if tableViewController.team.rawValue == 2 {
             return nil
@@ -76,6 +84,7 @@ extension RedSoPageViewController:UIPageViewControllerDataSource{
 //MARK: - 移動collectionView翻頁
 extension RedSoPageViewController:TurnToNetPage{
     func turnToNetPage(newPageIndex: Int) {
+        
         var currentyyPageIndex = self.viewControllers?.first?.view.tag
         
         if newPageIndex != currentyyPageIndex {

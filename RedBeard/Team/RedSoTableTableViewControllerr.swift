@@ -39,20 +39,24 @@ class RedSoTableViewController: UITableViewController {
         }
     }
     
-    //tag為給翻頁用的參數
+    //tag給翻頁用的參數
     var team:TeamName!{
         didSet{
             self.view.tag = team.rawValue
         }
     }
-    
+
     var page = 0
+    
     var pageStatus:PageStatus = .NotLoadingMore
+    
+    //MARK:- 無限列車
+    let blankData = [Results(id: "", type: "", name: "", position: "", expertise: [""], avatar: "", url: "")]
     
     func getCellData(){
         let dataRequest = HTTPRequest()
         dataRequest.load(teamName: self.team.string, pageNumber: self.page) { (res:Result< GetData ,NetWorkError>) in
-           
+            
             switch res{
             case .success(let data):
                 self.cellData = data.results
@@ -62,28 +66,6 @@ class RedSoTableViewController: UITableViewController {
         }
     }
     
-    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        print((self.tableView.rowHeight + scrollView.contentOffset.y))
-        guard scrollView.contentSize.height > self.tableView.rowHeight else {return}
-        if scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y) <= -10{
-            
-            self.pageStatus = .LoadingMore
-            //重新下載檔案
-            let dataRequest = HTTPRequest()
-            self.page += 1
-            dataRequest.load(teamName: self.team.string, pageNumber: self.page) { (res:Result<GetData, NetWorkError>) in
-                switch res{
-                case .success(let data):
-                    self.cellData += data.results
-                    self.tableView.reloadData()
-                case .failure(let error):
-                    print(error.description)
-                }
-            }
-            
-            
-        }
-    }
     //MARK: - set cell
     
     func generateNormalCell(indexPath:IndexPath,result:Results) -> NormalTableViewCell{
@@ -106,41 +88,86 @@ class RedSoTableViewController: UITableViewController {
         return cell
     }
     
+    func generateMugenTrainCell(indexPath:IndexPath)->BlankTableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "blankCell", for: indexPath) as! BlankTableViewCell
+        cell.mugenTrainLabel.text = "無限列車\(indexPath.row)"
+        return cell
+    }
+    
     convenience init(team:TeamName){
         self.init(nibName: nil, bundle: nil)
         self.team = team
     }
     
-    //生命週期放置的內容
+    //滑完觸發
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+       
+        guard scrollView.contentSize.height > self.tableView.rowHeight else {return}
+        
+        //all row range - (tabkeview range + 滾到位置)
+        if scrollView.contentSize.height - (scrollView.frame.size.height + scrollView.contentOffset.y) <= -10{
+            self.pageStatus = .LoadingMore
+            //重新下載檔案
+            let dataRequest = HTTPRequest()
+            self.page += 1
+            
+            dataRequest.load(teamName: self.team.string, pageNumber: self.page) { (res:Result<GetData, NetWorkError>) in
+                switch res{
+                case .success(let data):
+                    self.cellData += data.results
+                    if self.cellData.count >= 10{
+                        for _ in 0...4{
+                            self.cellData += self.blankData
+                        }
+                    }
+                    self.tableView.reloadData()
+                case .failure(let error):
+                    print(error.description)
+                }
+            }
+        }
+    }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(NormalTableViewCell.self, forCellReuseIdentifier: "normalCell")
         tableView.register(BannerTableViewCell.self, forCellReuseIdentifier: "bannerCell")
         tableView.register(LoadingTableViewCell.self, forCellReuseIdentifier: "loadingCell")
+        tableView.register(BlankTableViewCell.self, forCellReuseIdentifier: "blankCell")
         tableView.delegate = self
         tableView.dataSource = self
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//        tableView.separatorColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         tableView.allowsSelection = false
         tableView.frame = CGRect(x: 0, y: fullScreenY * 0.3, width: fullScreenX * 0.5, height: fullScreenY * 0.7)
         self.view.tag = team.rawValue
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
+        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableView.automaticDimension
         getCellData()
     }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return fullScreenY * 0.2
+        let resultCell = cellData[indexPath.row]
+        
+        switch resultCell.type!{
+        case "banner":
+            return fullScreenY * 0.2
+        case "employee":
+            return UITableView.automaticDimension
+        default:
+            return fullScreenY * 0.2
+        }
     }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         var row:Int = 0
         
         switch pageStatus{
-        
         case .LoadingMore:
             row = cellData.count + 1
         case .NotLoadingMore:
@@ -150,14 +177,17 @@ class RedSoTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         var cell = UITableViewCell()
         let resultCell = cellData[indexPath.row]
-        if  indexPath.row == cellData.count{
+        if indexPath.row == cellData.count{
             cell = generateLoadingCell(indexPath: indexPath)
         }else if resultCell.type == "employee"{
             cell = generateNormalCell(indexPath: indexPath, result: resultCell)
         }else if resultCell.type == "banner"{
             cell = generateBannerCell(indexPath: indexPath, result: resultCell)
+        }else if self.cellData.count >= 10{
+            cell = generateMugenTrainCell(indexPath: indexPath)
         }
         return cell
     }

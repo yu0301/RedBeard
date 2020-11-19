@@ -18,21 +18,25 @@ struct Results : Codable {
     let position : String?
     let expertise : [String]?
     let avatar : String?
-//    var avatarURL: URL? {
-//        return URL(string: avatar)!
-//    }
-    let url:String?
+    var avatarURL: URL? {
+        return URL(string: avatar!)!
     }
+    let url:String?
+    
+}
 
 var fullScreenX = UIScreen.main.bounds.maxX
 var fullScreenY = UIScreen.main.bounds.maxY
 
+
+
 extension UIImageView{
     func load(url:URL){
-        DispatchQueue.global().async { [weak self] in
+        DispatchQueue.main.async { [weak self] in
             if let data = try?Data(contentsOf: url){
                 if let image = UIImage(data: data){
                     DispatchQueue.main.async {
+                        //放預設圖
                         self!.image = image
                     }
                 }
@@ -40,3 +44,4 @@ extension UIImageView{
         }
     }
 }
+

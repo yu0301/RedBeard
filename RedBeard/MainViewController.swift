@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
             redBeardCollectionView.reloadData()
         }
     }
-    
+ 
     let redBeardCollectionView:UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
@@ -34,25 +34,25 @@ class MainViewController: UIViewController {
         return collectionView
     }()
     
-    lazy var underLineOfCollectionView:UIView = {
+    lazy var sliderView:UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 3))
         view.center = CGPoint(x: 70, y: 71.333)
         view.backgroundColor = #colorLiteral(red: 1, green: 0.003718964041, blue: 0, alpha: 1)
         return view
     }()
     
-    lazy var redSoLabel:UILabel = {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: fullScreenX, height: fullScreenY * 0.1))
+    lazy var redSoLabel:CustomLabel = {
+        let label = CustomLabel()
         label.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-        //自適應設定
         label.textAlignment = .center
         //設定個別顏色
         var labelText = label.text
         labelText = "RedSo"
         let attributedText = NSMutableAttributedString(string: labelText!)
-        attributedText.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont(name: "AppleSDGothicNeo-Bold", size: 25)!], range: getRangeOfSubString(subString: "Red", fromString: labelText!))
+        
+        attributedText.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont(name: "AppleSDGothicNeo-Bold", size: 40)!], range: getRangeOfSubString(subString: "Red", fromString: labelText!))
 
-        attributedText.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red, NSAttributedString.Key.font: UIFont(name: "AppleSDGothicNeo-Bold", size: 25)!], range: getRangeOfSubString(subString: "So", fromString: labelText!))
+        attributedText.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red, NSAttributedString.Key.font: UIFont(name: "AppleSDGothicNeo-Bold", size: 40)!], range: getRangeOfSubString(subString: "So", fromString: labelText!))
         label.attributedText = attributedText
         return label
     }()
@@ -65,6 +65,30 @@ class MainViewController: UIViewController {
         let linkRange = NSMakeRange(startPos, endPos - startPos)
         return linkRange
     }
+    
+    //MARK: - slider center
+    func setSliderPosition(item:Int){
+        print("test moving slider")
+        guard let cell = redBeardCollectionView.cellForItem(at:IndexPath(item: item, section: 0) )else {
+            return
+        }
+        print("slider\(item)")
+        let cellCenter = cell.center
+        
+        UIView.animate(withDuration: 0.25){
+            self.sliderView.center = CGPoint(x: cellCenter.x, y: cellCenter.y + 25)
+        }
+    }
+    
+    //MARK:- constraints
+    
+    func setredSoLabelConstraints(){
+        redSoLabel.translatesAutoresizingMaskIntoConstraints = false
+        redSoLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        redSoLabel.bottomAnchor.constraint(equalTo: redBeardCollectionView.topAnchor).isActive = true
+        redSoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        redSoLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+    }
    
     
     override func viewDidLoad() {
@@ -74,7 +98,9 @@ class MainViewController: UIViewController {
         view.addSubview(redSoLabel)
         view.addSubview(redSoPageViewController.view)
         view.addSubview(redBeardCollectionView)
-        redBeardCollectionView.addSubview(underLineOfCollectionView)
+        redSoLabel.verticalAlignment = .Middle
+        setredSoLabelConstraints()
+        redBeardCollectionView.addSubview(sliderView)
         redBeardCollectionView.delegate = self
         redBeardCollectionView.dataSource = self
         TurnToNetPageDelegate = redSoPageViewController
@@ -94,44 +120,20 @@ extension MainViewController:UICollectionViewDataSource,UICollectionViewDelegate
         cell.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         cell.teamLabel.text = teamName[indexPath.row]
         
-        switch indexPath.row{
-        case 0:
-            if item == 0{
-                let cellCenter = cell.center
-                UIView.animate(withDuration: 0.25){
-                    self.underLineOfCollectionView.center = CGPoint(x: cellCenter.x, y: cellCenter.y + 25)
-                }
-            }
-            return cell
-        case 1:
-            if item == 1{
-                let cellCenter = cell.center
-                UIView.animate(withDuration: 0.25){
-                    self.underLineOfCollectionView.center = CGPoint(x: cellCenter.x, y: cellCenter.y + 25)
-                }
-            }
-            return cell
-        case 2:
-            if item == 2{
-                let cellCenter = cell.center
-                UIView.animate(withDuration: 0.25){
-                    self.underLineOfCollectionView.center = CGPoint(x: cellCenter.x, y: cellCenter.y + 25)
-                }
-            }
-            return cell
-        default:
-            return cell
-        }
+        //點page 移動slider
+        print(item)
+        setSliderPosition(item: item)
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         TurnToNetPageDelegate?.turnToNetPage(newPageIndex: indexPath.item)
         
-        //移動到該cell的中心
+//        移動到該cell的中心
         let cell = redBeardCollectionView.cellForItem(at: indexPath)
-        let cellCenter = cell?.center
+        let cellCenter = cell!.center
         UIView.animate(withDuration: 0.25){
-            self.underLineOfCollectionView.center = CGPoint(x: cellCenter!.x, y: cellCenter!.y + 25)
+            self.sliderView.center = CGPoint(x: cellCenter.x, y: cellCenter.y + 25)
         }
     }
 }
@@ -147,5 +149,6 @@ extension MainViewController:ScrollToItem{
 protocol TurnToNetPage {
     func turnToNetPage(newPageIndex: Int)
 }
+
 
 
