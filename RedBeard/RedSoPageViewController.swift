@@ -27,8 +27,6 @@ class RedSoPageViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.frame = CGRect(x: 0, y: fullScreenY * 0.2, width: fullScreenX, height: fullScreenY * 0.8)
-        delegate = self
-        dataSource = self
         self.setViewControllers([tableViewcontroller[0]], direction: .forward, animated: true, completion: nil)
     }
 }

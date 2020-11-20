@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RedBeardCollectionViewCell: UICollectionViewCell {
+class RedSoCollectionViewCell: UICollectionViewCell {
     
     let teamLabel:UILabel = {
        let label = UILabel()
@@ -23,12 +23,10 @@ class RedBeardCollectionViewCell: UICollectionViewCell {
         teamLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         teamLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         teamLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.frame = teamLabel.frame
         addSubview(teamLabel)
         setTeamLabelConstraints()
     }
