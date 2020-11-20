@@ -12,19 +12,19 @@ class MainViewController: UIViewController {
     let teamName = ["Rangers","Elastic","Dynamo"]
     var TurnToNetPageDelegate:TurnToNetPage?
     var redSoPageViewController = RedSoPageViewController()
+    
+    //頁數改變時，slider跟著動
     var item:Int = 0{
         didSet{
-            redBeardCollectionView.reloadData()
+            setSliderPosition(item: self.item)
         }
     }
  
+    
     let redBeardCollectionView:UICollectionView = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
-        //cell的寬、高
-        layout.itemSize = CGSize(width: 100, height: 40)
-        //cell與cell的間距
-        layout.minimumLineSpacing = CGFloat(integerLiteral: 50)
+        layout.minimumLineSpacing = CGFloat(integerLiteral: 80)
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: fullScreenY * 0.1, width: fullScreenX, height: fullScreenY * 0.1), collectionViewLayout: layout)
         collectionView.register(RedBeardCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
@@ -51,7 +51,6 @@ class MainViewController: UIViewController {
         let attributedText = NSMutableAttributedString(string: labelText!)
         
         attributedText.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont(name: "AppleSDGothicNeo-Bold", size: 40)!], range: getRangeOfSubString(subString: "Red", fromString: labelText!))
-
         attributedText.addAttributes([NSAttributedString.Key.foregroundColor: UIColor.red, NSAttributedString.Key.font: UIFont(name: "AppleSDGothicNeo-Bold", size: 40)!], range: getRangeOfSubString(subString: "So", fromString: labelText!))
         label.attributedText = attributedText
         return label
@@ -68,15 +67,11 @@ class MainViewController: UIViewController {
     
     //MARK: - slider center
     func setSliderPosition(item:Int){
-        print("test moving slider")
-        guard let cell = redBeardCollectionView.cellForItem(at:IndexPath(item: item, section: 0) )else {
-            return
-        }
-        print("slider\(item)")
-        let cellCenter = cell.center
-        
+        let cell = redBeardCollectionView.cellForItem(at:IndexPath(item: item, section: 0))
+        let cellCenter = cell!.center
         UIView.animate(withDuration: 0.25){
             self.sliderView.center = CGPoint(x: cellCenter.x, y: cellCenter.y + 25)
+            
         }
     }
     
@@ -94,9 +89,15 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        
+        //加入子視圖控制器
         addChild(redSoPageViewController)
-        view.addSubview(redSoLabel)
+        //子視圖控制器之視圖添加至父視圖控制器視圖
         view.addSubview(redSoPageViewController.view)
+        //通知子視圖控制器被加入父視圖控制器
+        redSoPageViewController.didMove(toParent: self)
+  
+        view.addSubview(redSoLabel)
         view.addSubview(redBeardCollectionView)
         redSoLabel.verticalAlignment = .Middle
         setredSoLabelConstraints()
@@ -119,10 +120,6 @@ extension MainViewController:UICollectionViewDataSource,UICollectionViewDelegate
         let cell = redBeardCollectionView.dequeueReusableCell(withReuseIdentifier:"Cell" , for: indexPath) as!RedBeardCollectionViewCell
         cell.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         cell.teamLabel.text = teamName[indexPath.row]
-        
-        //點page 移動slider
-        print(item)
-        setSliderPosition(item: item)
         return cell
     }
     

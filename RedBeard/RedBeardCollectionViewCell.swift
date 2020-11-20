@@ -10,16 +10,27 @@ import UIKit
 class RedBeardCollectionViewCell: UICollectionViewCell {
     
     let teamLabel:UILabel = {
-       let label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 40))
+       let label = UILabel()
+        label.numberOfLines = 0
         label.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         label.textAlignment = .center
-        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 20)
+        label.font = UIFont(name: "AppleSDGothicNeo-Bold", size: 25)
         return label
     }()
     
+    func setTeamLabelConstraints(){
+        teamLabel.translatesAutoresizingMaskIntoConstraints = false
+        teamLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        teamLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        teamLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.frame = teamLabel.frame
         addSubview(teamLabel)
+        setTeamLabelConstraints()
     }
     
     required init?(coder: NSCoder) {

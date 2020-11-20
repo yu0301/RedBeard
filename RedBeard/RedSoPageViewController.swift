@@ -17,9 +17,6 @@ class RedSoPageViewController: UIPageViewController {
         RedSoTableViewController(team: .dynamo)
     ]
     
-    func myClosure(para: String, myClosurePara: (String) -> Void) {
-        myClosurePara(para)
-    }
     init(){
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
     }
